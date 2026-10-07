@@ -97,6 +97,9 @@ function sanitizeRedirectHeaders(response) {
 }
 
 function wrapRedirectSanitizer(options) {
+  if (options.followRedirect === false && !options.followAllRedirects) {
+    return options;
+  }
   const originalFollowRedirect = options.followRedirect;
   options.followRedirect = function (response) {
     sanitizeRedirectHeaders.call(this, response);
